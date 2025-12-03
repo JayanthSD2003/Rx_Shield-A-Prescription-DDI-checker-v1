@@ -1,0 +1,9 @@
+kivy
+google-generativeai
+python-dotenv
+gTTS
+bcrypt
+playsound
+reportlab
+python-docx
+pyinstaller

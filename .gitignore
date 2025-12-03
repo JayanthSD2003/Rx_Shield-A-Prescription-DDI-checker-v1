@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+.env
+dist/
+build/
+*.spec
+.vscode/
+rx_shield.db
+reports/
+*.log

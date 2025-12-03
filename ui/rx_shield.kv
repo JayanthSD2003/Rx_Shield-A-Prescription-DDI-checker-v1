@@ -1,0 +1,536 @@
+#:kivy 2.1.0
+#:import utils kivy.utils
+
+<RoundedButton@Button>:
+    background_color: 0, 0, 0, 0
+    canvas.before:
+        Color:
+            rgba: (0.0, 0.6, 0.6, 1) if self.state == 'normal' else (0.0, 0.4, 0.4, 1) # Teal
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20,]
+
+<CardLabel@Label>:
+    color: 0, 0, 0, 1
+
+<LoginScreen>:
+    name: 'login'
+    canvas.before:
+        Color:
+            rgba: 0.94, 0.97, 1, 1 # Light Medical Blue
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: 50
+        spacing: 30
+        size_hint: None, None
+        size: 900, 550
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        # Left Side: Description Card
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 30
+            spacing: 20
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20,]
+            
+            Label:
+                text: 'About Rx Shield'
+                font_size: 24
+                bold: True
+                color: 0.0, 0.6, 0.6, 1 # Teal
+                size_hint_y: None
+                height: 40
+                halign: 'left'
+                text_size: self.width, None
+
+            Label:
+                text: "Rx_Shield is a comprehensive Prescription Drug Interaction Checker designed to enhance patient safety.\\n\\nIt digitizes handwritten medical prescriptions and cross-references medications to identify potential drug interactions, dosage errors, and provide safety warnings in real-time.\\n\\nKey components:\\n- Handwritten text recognition\\n- Drug name NER\\n- Dosage extraction\\n- Knowledge graph integration\\n- Interaction detection"
+                text_size: self.width, None
+                size_hint_y: 1
+                valign: 'top'
+                halign: 'left'
+                color: 0.3, 0.3, 0.3, 1
+                font_size: 16
+                line_height: 1.5
+
+        # Right Side: Login Form
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 40
+            spacing: 20
+            size_hint_x: 0.8
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20,]
+            
+            Label:
+                text: 'Rx Shield'
+                font_size: 32
+                bold: True
+                color: 0.0, 0.6, 0.6, 1 # Teal
+                size_hint_y: None
+                height: 50
+                
+            Label:
+                text: 'Login to your account'
+                font_size: 16
+                color: 0.5, 0.5, 0.5, 1
+                size_hint_y: None
+                height: 30
+
+            TextInput:
+                id: username
+                hint_text: 'Username'
+                multiline: False
+                size_hint_y: None
+                height: 45
+                background_normal: ''
+                background_active: ''
+                background_color: 0.95, 0.95, 0.95, 1
+                foreground_color: 0, 0, 0, 1
+                padding_y: [12, 12]
+                
+            TextInput:
+                id: password
+                hint_text: 'Password'
+                password: True
+                multiline: False
+                size_hint_y: None
+                height: 45
+                background_normal: ''
+                background_active: ''
+                background_color: 0.95, 0.95, 0.95, 1
+                foreground_color: 0, 0, 0, 1
+                padding_y: [12, 12]
+
+            RoundedButton:
+                text: 'Login'
+                size_hint_y: None
+                height: 50
+                on_press: root.do_login(username.text, password.text)
+
+            Button:
+                text: 'Create new account'
+                on_press: root.manager.current = 'register'
+                background_color: 0, 0, 0, 0
+                color: 0.2, 0.5, 0.8, 1 # Blue
+                size_hint_y: None
+                height: 30
+
+            Button:
+                text: 'Exit'
+                on_press: root.exit_app()
+                background_color: 0, 0, 0, 0
+                color: 0.5, 0.5, 0.5, 1
+                size_hint_y: None
+                height: 30
+
+<RegisterScreen>:
+    name: 'register'
+    canvas.before:
+        Color:
+            rgba: 0.94, 0.97, 1, 1 # Light Medical Blue
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 50
+        spacing: 20
+        size_hint: None, None
+        size: 400, 500
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [20,]
+                
+        Label:
+            text: 'Register'
+            font_size: 32
+            bold: True
+            color: 0.0, 0.6, 0.6, 1 # Teal
+            size_hint_y: None
+            height: 60
+
+        TextInput:
+            id: username
+            hint_text: 'Username'
+            multiline: False
+            size_hint_y: None
+            height: 40
+            background_normal: ''
+            background_active: ''
+            background_color: 0.95, 0.95, 0.95, 1
+            foreground_color: 0, 0, 0, 1
+            padding_y: [10, 10]
+            
+        TextInput:
+            id: password
+            hint_text: 'Password'
+            password: True
+            multiline: False
+            size_hint_y: None
+            height: 40
+            background_normal: ''
+            background_active: ''
+            background_color: 0.95, 0.95, 0.95, 1
+            foreground_color: 0, 0, 0, 1
+            padding_y: [10, 10]
+
+        RoundedButton:
+            text: 'Register'
+            on_press: root.do_register(username.text, password.text)
+            size_hint_y: None
+            height: 50
+
+        Button:
+            text: 'Back to Login'
+            on_press: root.manager.current = 'login'
+            background_color: 0, 0, 0, 0
+            color: 0.2, 0.5, 0.8, 1 # Blue
+            size_hint_y: None
+            height: 30
+
+<WelcomeScreen>:
+    name: 'welcome'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 50
+        spacing: 20
+        
+        Label:
+            id: welcome_label
+            text: 'Welcome to Rx Shield'
+            font_size: 32
+            color: 0, 0, 0, 1
+            
+        RoundedButton:
+            text: 'Go to Dashboard'
+            size_hint: None, None
+            size: 200, 50
+            pos_hint: {'center_x': 0.5}
+            on_press: root.manager.current = 'dashboard'
+
+<HomeScreen>:
+    name: 'home'
+    canvas.before:
+        Color:
+            rgba: 0.94, 0.97, 1, 1 # Light Medical Blue
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 30
+        spacing: 20
+        
+        # Header with Welcome Message
+        BoxLayout:
+            size_hint_y: None
+            height: 60
+            orientation: 'vertical'
+            
+            Label:
+                id: welcome_label
+                text: 'Welcome'
+                font_size: 28
+                bold: True
+                color: 0.0, 0.6, 0.6, 1 # Teal
+                halign: 'left'
+                text_size: self.width, None
+
+        # Main Content Area (Horizontal Split)
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 30
+            
+            # Left Side: Recent Analysis & Actions
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 20
+                size_hint_x: 0.5
+                
+                # Recent Analysis Card
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: 10
+                    canvas.before:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [15,]
+                    padding: 20
+                    
+                    Label:
+                        text: 'Recent Analysis'
+                        font_size: 20
+                        bold: True
+                        color: 0.2, 0.5, 0.8, 1 # Blue
+                        size_hint_y: None
+                        height: 30
+                        halign: 'left'
+                        text_size: self.width, None
+                        
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        spacing: 10
+                        
+                        Image:
+                            id: recent_image
+                            source: ''
+                            size_hint_x: 0.4
+                            allow_stretch: True
+                            keep_ratio: True
+                            
+                        Label:
+                            id: recent_text
+                            text: 'No recent analysis found.'
+                            color: 0.2, 0.2, 0.2, 1
+                            text_size: self.width, None
+                            valign: 'top'
+                            halign: 'left'
+                            shorten: True
+                            shorten_from: 'right'
+                    
+                    Label:
+                        id: recent_filename
+                        text: ''
+                        color: 0.5, 0.5, 0.5, 1
+                        font_size: 12
+                        size_hint_y: None
+                        height: 20
+                        halign: 'left'
+                        text_size: self.width, None
+
+                RoundedButton:
+                    text: 'New Analysis'
+                    size_hint_y: None
+                    height: 60
+                    on_press: root.manager.current = 'dashboard'
+                    
+                Button:
+                    text: 'Logout'
+                    background_color: 0, 0, 0, 0
+                    color: 1, 0.2, 0.2, 1
+                    size_hint_y: None
+                    height: 40
+                    on_press: root.logout()
+
+            # Right Side: Description Card
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 30
+                spacing: 15
+                size_hint_x: 0.5
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [15,]
+                
+                Label:
+                    text: 'Project Overview'
+                    font_size: 22
+                    bold: True
+                    color: 0.0, 0.6, 0.6, 1 # Teal
+                    size_hint_y: None
+                    height: 40
+                    halign: 'left'
+                    text_size: self.width, None
+
+                Label:
+                    text: "Rx_Shield: Prescription Drug Interaction Checker\\n\\nDigitize handwritten medical prescriptions and cross-reference medications to identify potential drug interactions, dosage errors, and provide safety warnings in real-time.\\n\\nKey components:\\n- Handwritten text recognition (medical handwriting)\\n- Drug name NER\\n- Dosage extraction\\n- Knowledge graph integration\\n- Interaction detection"
+                    text_size: self.width, None
+                    valign: 'top'
+                    halign: 'left'
+                    color: 0.3, 0.3, 0.3, 1
+                    font_size: 16
+                    line_height: 1.4
+
+<DashboardScreen>:
+    name: 'dashboard'
+    canvas.before:
+        Color:
+            rgba: 0.94, 0.97, 1, 1 # Light Medical Blue
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 30
+        spacing: 20
+        
+        Label:
+            text: 'Upload Prescription'
+            font_size: 24
+            bold: True
+            color: 0.0, 0.6, 0.6, 1 # Teal
+            size_hint_y: None
+            height: 50
+            
+        BoxLayout:
+            orientation: 'vertical'
+            canvas.before:
+                Color:
+                    rgba: 0.1, 0.2, 0.3, 1 # Dark Blue-Grey for contrast with white text
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [10,]
+            padding: 10
+            
+            FileChooserListView:
+                id: filechooser
+                filters: ['*.png', '*.jpg', '*.jpeg']
+                multiselect: False
+                
+        BoxLayout:
+            size_hint_y: None
+            height: 50
+            spacing: 20
+            
+            RoundedButton:
+                text: 'Analyze Image'
+                on_press: root.analyze_image(filechooser.selection)
+                
+            RoundedButton:
+                text: 'Back to Home'
+                on_press: root.manager.current = 'home'
+
+<ResultsScreen>:
+    name: 'results'
+    canvas.before:
+        Color:
+            rgba: 0.94, 0.97, 1, 1 # Light Medical Blue
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 30
+        spacing: 20
+        
+        Label:
+            text: 'Analysis Results'
+            font_size: 24
+            bold: True
+            color: 0.0, 0.6, 0.6, 1 # Teal
+            size_hint_y: None
+            height: 40
+            
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 20
+            
+            # Left Side: Text Output
+            ScrollView:
+                size_hint_x: 0.6
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [10,]
+                Label:
+                    id: results_label
+                    text: 'Processing...'
+                    color: 0.1, 0.1, 0.1, 1
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    padding: 20, 20
+            
+            # Right Side: Image
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.4
+                spacing: 10
+                
+                Label:
+                    text: 'Scanned Image'
+                    color: 0.2, 0.5, 0.8, 1 # Blue
+                    size_hint_y: None
+                    height: 30
+                    bold: True
+                    
+                Image:
+                    id: result_image
+                    source: ''
+                    allow_stretch: True
+                    keep_ratio: True
+                    canvas.before:
+                        Color:
+                            rgba: 0.8, 0.8, 0.8, 1
+                        Line:
+                            rectangle: self.x, self.y, self.width, self.height
+                            width: 1
+        
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            spacing: 20
+            
+            RoundedButton:
+                text: 'Back to Dashboard'
+                on_press: root.reset_and_back()
+                
+            RoundedButton:
+                text: 'Back to Home'
+                on_press: root.go_home()
+                
+            RoundedButton:
+                text: 'Scan Another'
+                on_press: root.reset_and_back()
+                
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            spacing: 20
+            
+            Button:
+                text: 'Export Markdown'
+                background_color: 0, 0, 0, 0
+                color: 0.2, 0.5, 0.8, 1 # Blue
+                on_press: root.export_result('markdown')
+                
+            Button:
+                text: 'Export Word'
+                background_color: 0, 0, 0, 0
+                color: 0.2, 0.5, 0.8, 1 # Blue
+                on_press: root.export_result('word')
